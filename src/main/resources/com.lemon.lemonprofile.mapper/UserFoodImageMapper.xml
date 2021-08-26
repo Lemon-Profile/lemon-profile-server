@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.lemon.lemonprofile.mapper.UserFoodImageMapper">
+    <select id="getFoodImages" resultType="TbUserFoodImageVo">
+        SELECT * FROM TB_USER_FOOD_IMAGE
+        WHERE USER_ID=#{USER_ID}
+        ORDER BY INTAKE_DT DESC;
+    </select>
+    <insert id="addFoodImage">
+        INSERT INTO TB_USER_FOOD_IMAGE VALUES
+        (#{USER_ID}, Date, #{INTAKE_DT}, #{IMG_SRC});
+    </insert>
+</mapper>
