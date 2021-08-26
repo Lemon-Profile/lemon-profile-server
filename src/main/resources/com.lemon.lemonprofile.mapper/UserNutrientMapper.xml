@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.lemon.lemonprofile.mapper.UserNutrientMapper">
+    <select id="getUserNutrient" resultType="TbUserNutrientVo">
+        SELECT * FROM TB_USER_NUTRIENT_STATISTICS AS TUNS
+        WHERE TUNS.DATE BETWEEN #{TO_DATE} and #{FROM_DATE} and USER_ID=#{USER_ID}
+        ORDER BY TUNS.DATE DESC;
+    </select>
+    <select id="getCurrentUserNutrient" resultType="TbUserNutrientVo">
+        SELECT * FROM TB_USER_NUTRIENT_STATISTICS AS TUNS
+        WHERE Date(TUNS.DATE)=Date(#{DATE}) and USER_ID=#{USER_ID};
+    </select>
+    <insert id="addUserNutrient">
+        INSERT INTO TB_USER_NUTRIENT_STATISTICS VALUES
+        (#{USER_ID}, Date(#{DATE}), #{CALORIE}, #{CARBOHYDRATE}, #{FAT}, #{VITAMIN_A}, #{VITAMIN_B}, #{VITAMIN_C}, #{CALCIUM}, #{MAGNESIUM},#{OMEGA_3});
+    </insert>
+    <update id="setCurrentNutrient">
+        UPDATE TB_USER_NUTRIENT_STATISTICS AS TUNS SET
+        CALORIE=#{CALORIE},CARBOHYDRATE=#{CARBOHYDRATE}, FAT=#{FAT},OMEGA_3=#{OMEGA_3},
+        VITAMIN_A=#{VITAMIN_A}, VITAMIN_B=#{VITAMIN_B}, VITAMIN_C=#{VITAMIN_C}, CALCIUM=#{CALCIUM}, MAGNESIUM=#{MAGNESIUM}
+        WHERE USER_ID=#{USER_ID} and Date(TUNS.DATE)=Date(#{DATE});
+    </update>
+</mapper>
